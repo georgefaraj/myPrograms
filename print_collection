@@ -1,0 +1,19 @@
+
+var mongodb = require('mongodb');
+var MongoClient = mongodb.MongoClient;
+var url = 'mongodb://localhost:27017/g';
+
+MongoClient.connect(url, function (err, db) {
+  if (err) {
+    console.log('Unable to connect to the mongoDB server. Error:', err);
+  } else {
+
+		var collection = db.collection('e');
+		collection.find({}).toArray(function(err,docs){
+			console.log("Found the following records");
+			console.log(docs);
+		});
+
+	}
+	db.close();
+});
