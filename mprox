@@ -1,0 +1,52 @@
+var mongodb = require('mongodb');
+var MongoClient = mongodb.MongoClient;
+var url = 'mongodb://localhost:27017/g';//Change as needed
+"use strict";
+var Gpio = require('onoff').Gpio,
+  button = new Gpio(16, 'in', 'both');
+
+button.watch(function (err, value) {
+  if (err) {
+    throw err;
+  }
+  console.log(value);
+
+
+MongoClient.connect(url, function (err, db) {
+  if (err) {
+    console.log('Unable to connect to the mongoDB server. Error:', err);
+  } else {
+        console.log('Connection established to', url);
+
+                var collection = db.collection('e');//Change as needed
+
+        var curDate = new Date();
+        var day = curDate.getDate();
+        var month = curDate.getMonth()+1;
+        var year = curDate.getFullYear();
+        var hours = curDate.getHours();
+        var min = curDate.getMinutes();
+        if(month<10)
+            month ="0"+month;
+        if(day<10)
+            day="0"+day;
+        if(min<10)
+            min="0"+min;
+        var finalid=""+year+" "+month+" "+day+" "+hours+" "+min;
+
+                var payload={"Message":"I think the time is time","Time":finalid};
+
+                collection.insert([payload]);
+        }
+});
+
+
+
+});
+
+process.on('SIGINT', function () {
+  button.unexport();
+});
+
+
+
