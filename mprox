@@ -37,8 +37,12 @@ MongoClient.connect(url, function (err, db) {
                 var payload={"Message":"I think the time is time","Time":finalid};
 
                 collection.insert([payload]);
+
+db.close();
+
         }
 });
+
 
 
 
