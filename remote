@@ -1,0 +1,23 @@
+"use strict"; 
+var Gpio = require('onoff').Gpio,
+ex1 = new Gpio(20, 'out'),
+ex2 = new Gpio(21,'out');
+
+var input = process.argv[2];
+
+if(input=="on1"){
+	console.log("Turning system on");
+	ex1.writeSync(1);
+}
+
+if(input=="on2"){
+	console.log("Turning system on");
+	ex2.writeSync(1);
+}
+
+if(input=="off"){
+	console.log("Turning system off");
+	ex1.writeSync(0);
+	ex1.unexport();
+	ex2.unexport();
+}
