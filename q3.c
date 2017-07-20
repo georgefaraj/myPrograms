@@ -7,7 +7,7 @@
 static int sum = 0;
 pthread_mutex_t mutex;
 
-void *func(){
+void *func(void * param){
   pthread_mutex_lock(&mutex);
   sum++;
   printf("%d ", sum);
