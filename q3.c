@@ -8,7 +8,7 @@ static int sum = 0;
 pthread_mutex_t mutex;
 
 void *func(){
-  pthread_mutex_1ock(&mutex);
+  pthread_mutex_lock(&mutex);
   sum++;
   printf("%d ", sum);
   pthread_mutex_unlock(&mutex);
